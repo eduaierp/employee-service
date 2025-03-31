@@ -224,33 +224,33 @@ type Employee struct {
 	HighestQualification      string   `protobuf:"bytes,18,opt,name=highest_qualification,json=highestQualification,proto3" json:"highest_qualification,omitempty"`
 	Specialization            string   `protobuf:"bytes,19,opt,name=specialization,proto3" json:"specialization,omitempty"`
 	TeachingExperience        string   `protobuf:"bytes,20,opt,name=teaching_experience,json=teachingExperience,proto3" json:"teaching_experience,omitempty"`
-	Certifications            []string `protobuf:"bytes,21,rep,name=certifications,proto3" json:"certifications,omitempty"`                                                  // repeated field for certifications
-	ResearchPublications      []string `protobuf:"bytes,22,rep,name=research_publications,json=researchPublications,proto3" json:"research_publications,omitempty"`          // repeated field for research publications
-	ProfessionalMemberships   []string `protobuf:"bytes,23,rep,name=professional_memberships,json=professionalMemberships,proto3" json:"professional_memberships,omitempty"` // repeated field for professional memberships
-	RolesResponsibilities     []string `protobuf:"bytes,24,rep,name=roles_responsibilities,json=rolesResponsibilities,proto3" json:"roles_responsibilities,omitempty"`       // repeated field for roles and responsibilities
+	Certifications            []string `protobuf:"bytes,21,rep,name=certifications,proto3" json:"certifications,omitempty"`                                                  // repeated as multiple certifications
+	ResearchPublications      []string `protobuf:"bytes,22,rep,name=research_publications,json=researchPublications,proto3" json:"research_publications,omitempty"`          // repeated as multiple publications
+	ProfessionalMemberships   []string `protobuf:"bytes,23,rep,name=professional_memberships,json=professionalMemberships,proto3" json:"professional_memberships,omitempty"` // repeated memberships
+	RolesResponsibilities     []string `protobuf:"bytes,24,rep,name=roles_responsibilities,json=rolesResponsibilities,proto3" json:"roles_responsibilities,omitempty"`       // repeated responsibilities
 	ReportingManager          string   `protobuf:"bytes,25,opt,name=reporting_manager,json=reportingManager,proto3" json:"reporting_manager,omitempty"`
-	SubjectsAssigned          []string `protobuf:"bytes,26,rep,name=subjects_assigned,json=subjectsAssigned,proto3" json:"subjects_assigned,omitempty"`             // repeated field for subjects assigned
-	ClassGradeAssigned        []string `protobuf:"bytes,27,rep,name=class_grade_assigned,json=classGradeAssigned,proto3" json:"class_grade_assigned,omitempty"`     // repeated field for class grades assigned
-	AdministrativeDuties      []string `protobuf:"bytes,28,rep,name=administrative_duties,json=administrativeDuties,proto3" json:"administrative_duties,omitempty"` // repeated field for administrative duties
-	CommitteeMemberships      []string `protobuf:"bytes,29,rep,name=committee_memberships,json=committeeMemberships,proto3" json:"committee_memberships,omitempty"` // repeated field for committee memberships
+	SubjectsAssigned          []string `protobuf:"bytes,26,rep,name=subjects_assigned,json=subjectsAssigned,proto3" json:"subjects_assigned,omitempty"`             // repeated subjects
+	ClassGradeAssigned        []string `protobuf:"bytes,27,rep,name=class_grade_assigned,json=classGradeAssigned,proto3" json:"class_grade_assigned,omitempty"`     // repeated class grades
+	AdministrativeDuties      []string `protobuf:"bytes,28,rep,name=administrative_duties,json=administrativeDuties,proto3" json:"administrative_duties,omitempty"` // repeated administrative duties
+	CommitteeMemberships      []string `protobuf:"bytes,29,rep,name=committee_memberships,json=committeeMemberships,proto3" json:"committee_memberships,omitempty"` // repeated memberships in committees
 	SalaryStructure           string   `protobuf:"bytes,30,opt,name=salary_structure,json=salaryStructure,proto3" json:"salary_structure,omitempty"`
 	BankAccountDetails        string   `protobuf:"bytes,31,opt,name=bank_account_details,json=bankAccountDetails,proto3" json:"bank_account_details,omitempty"`
 	PanNumber                 string   `protobuf:"bytes,32,opt,name=pan_number,json=panNumber,proto3" json:"pan_number,omitempty"`
 	ProvidentFund             string   `protobuf:"bytes,33,opt,name=provident_fund,json=providentFund,proto3" json:"provident_fund,omitempty"`
 	HealthInsurance           string   `protobuf:"bytes,34,opt,name=health_insurance,json=healthInsurance,proto3" json:"health_insurance,omitempty"`
-	EducationalCertificates   []string `protobuf:"bytes,35,rep,name=educational_certificates,json=educationalCertificates,proto3" json:"educational_certificates,omitempty"`         // repeated field for educational certificates
-	ExperienceCertificates    []string `protobuf:"bytes,36,rep,name=experience_certificates,json=experienceCertificates,proto3" json:"experience_certificates,omitempty"`            // repeated field for experience certificates
-	GovernmentIdProofs        []string `protobuf:"bytes,37,rep,name=government_id_proofs,json=governmentIdProofs,proto3" json:"government_id_proofs,omitempty"`                      // repeated field for government ID proofs
-	AddressProofs             []string `protobuf:"bytes,38,rep,name=address_proofs,json=addressProofs,proto3" json:"address_proofs,omitempty"`                                       // repeated field for address proofs
-	JoiningLetter             []string `protobuf:"bytes,39,rep,name=joining_letter,json=joiningLetter,proto3" json:"joining_letter,omitempty"`                                       // repeated field for joining letters
-	PassportPhotos            []string `protobuf:"bytes,40,rep,name=passport_photos,json=passportPhotos,proto3" json:"passport_photos,omitempty"`                                    // repeated field for passport photos
-	PerformanceReviews        []string `protobuf:"bytes,41,rep,name=performance_reviews,json=performanceReviews,proto3" json:"performance_reviews,omitempty"`                        // repeated field for performance reviews
-	StudentFeedbackRatings    []string `protobuf:"bytes,42,rep,name=student_feedback_ratings,json=studentFeedbackRatings,proto3" json:"student_feedback_ratings,omitempty"`          // repeated field for student feedback ratings
-	TrainingPrograms          []string `protobuf:"bytes,43,rep,name=training_programs,json=trainingPrograms,proto3" json:"training_programs,omitempty"`                              // repeated field for training programs
-	PromotionsSalaryRevisions []string `protobuf:"bytes,44,rep,name=promotions_salary_revisions,json=promotionsSalaryRevisions,proto3" json:"promotions_salary_revisions,omitempty"` // repeated field for promotions and salary revisions
-	AttendanceRecords         []string `protobuf:"bytes,45,rep,name=attendance_records,json=attendanceRecords,proto3" json:"attendance_records,omitempty"`                           // repeated field for attendance records
+	EducationalCertificates   []string `protobuf:"bytes,35,rep,name=educational_certificates,json=educationalCertificates,proto3" json:"educational_certificates,omitempty"`         // repeated educational certificates
+	ExperienceCertificates    []string `protobuf:"bytes,36,rep,name=experience_certificates,json=experienceCertificates,proto3" json:"experience_certificates,omitempty"`            // repeated experience certificates
+	GovernmentIdProofs        []string `protobuf:"bytes,37,rep,name=government_id_proofs,json=governmentIdProofs,proto3" json:"government_id_proofs,omitempty"`                      // repeated government ID proofs
+	AddressProofs             []string `protobuf:"bytes,38,rep,name=address_proofs,json=addressProofs,proto3" json:"address_proofs,omitempty"`                                       // repeated address proofs
+	JoiningLetter             []string `protobuf:"bytes,39,rep,name=joining_letter,json=joiningLetter,proto3" json:"joining_letter,omitempty"`                                       // repeated joining letters
+	PassportPhotos            []string `protobuf:"bytes,40,rep,name=passport_photos,json=passportPhotos,proto3" json:"passport_photos,omitempty"`                                    // repeated passport photos
+	PerformanceReviews        []string `protobuf:"bytes,41,rep,name=performance_reviews,json=performanceReviews,proto3" json:"performance_reviews,omitempty"`                        // repeated performance reviews
+	StudentFeedbackRatings    []string `protobuf:"bytes,42,rep,name=student_feedback_ratings,json=studentFeedbackRatings,proto3" json:"student_feedback_ratings,omitempty"`          // repeated student feedback ratings
+	TrainingPrograms          []string `protobuf:"bytes,43,rep,name=training_programs,json=trainingPrograms,proto3" json:"training_programs,omitempty"`                              // repeated training programs
+	PromotionsSalaryRevisions []string `protobuf:"bytes,44,rep,name=promotions_salary_revisions,json=promotionsSalaryRevisions,proto3" json:"promotions_salary_revisions,omitempty"` // repeated salary revisions
+	AttendanceRecords         []string `protobuf:"bytes,45,rep,name=attendance_records,json=attendanceRecords,proto3" json:"attendance_records,omitempty"`                           // repeated attendance records
 	LeaveBalance              string   `protobuf:"bytes,46,opt,name=leave_balance,json=leaveBalance,proto3" json:"leave_balance,omitempty"`
-	LeaveHistory              []string `protobuf:"bytes,47,rep,name=leave_history,json=leaveHistory,proto3" json:"leave_history,omitempty"` // repeated field for leave history
+	LeaveHistory              []string `protobuf:"bytes,47,rep,name=leave_history,json=leaveHistory,proto3" json:"leave_history,omitempty"` // repeated leave history
 	LeaveApprovalWorkflow     string   `protobuf:"bytes,48,opt,name=leave_approval_workflow,json=leaveApprovalWorkflow,proto3" json:"leave_approval_workflow,omitempty"`
 	EmployeeCategory          string   `protobuf:"bytes,49,opt,name=employee_category,json=employeeCategory,proto3" json:"employee_category,omitempty"`
 }

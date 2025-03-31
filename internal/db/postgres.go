@@ -5,6 +5,7 @@ import (
 	"employee-service/proto"
 	"fmt"
 
+	"github.com/lib/pq"
 	_ "github.com/lib/pq"
 )
 
@@ -52,15 +53,30 @@ func CreateEmployee(employee *proto.Employee) error {
 		employee.EmergencyContact, employee.EmployeeId, employee.JoiningDate, employee.Department,
 		employee.Designation, employee.EmploymentType, employee.WorkShift, employee.JobDescription,
 		employee.HighestQualification, employee.Specialization, employee.TeachingExperience,
-		employee.Certifications, employee.ResearchPublications, employee.ProfessionalMemberships,
-		employee.RolesResponsibilities, employee.ReportingManager, employee.SubjectsAssigned,
-		employee.ClassGradeAssigned, employee.AdministrativeDuties, employee.CommitteeMemberships,
+		pq.Array(employee.Certifications),
+		pq.Array(employee.ResearchPublications),
+		pq.Array(employee.ProfessionalMemberships),
+		pq.Array(employee.RolesResponsibilities),
+		employee.ReportingManager,
+		pq.Array(employee.SubjectsAssigned),
+		pq.Array(employee.ClassGradeAssigned),
+		pq.Array(employee.AdministrativeDuties),
+		pq.Array(employee.CommitteeMemberships),
 		employee.SalaryStructure, employee.BankAccountDetails, employee.PanNumber, employee.ProvidentFund,
-		employee.HealthInsurance, employee.EducationalCertificates, employee.ExperienceCertificates,
-		employee.GovernmentIdProofs, employee.AddressProofs, employee.JoiningLetter, employee.PassportPhotos,
-		employee.PerformanceReviews, employee.StudentFeedbackRatings, employee.TrainingPrograms,
-		employee.PromotionsSalaryRevisions, employee.AttendanceRecords, employee.LeaveBalance,
-		employee.LeaveHistory, employee.LeaveApprovalWorkflow, employee.EmployeeCategory,
+		employee.HealthInsurance,
+		pq.Array(employee.EducationalCertificates),
+		pq.Array(employee.ExperienceCertificates),
+		pq.Array(employee.GovernmentIdProofs),
+		pq.Array(employee.AddressProofs),
+		pq.Array(employee.JoiningLetter),
+		pq.Array(employee.PassportPhotos),
+		pq.Array(employee.PerformanceReviews),
+		pq.Array(employee.StudentFeedbackRatings),
+		pq.Array(employee.TrainingPrograms),
+		pq.Array(employee.PromotionsSalaryRevisions),
+		pq.Array(employee.AttendanceRecords),
+		employee.LeaveBalance, pq.Array(employee.LeaveHistory),
+		employee.LeaveApprovalWorkflow, employee.EmployeeCategory,
 	)
 
 	return err
@@ -86,15 +102,31 @@ func GetAllEmployees() ([]*proto.Employee, error) {
 			&employee.EmergencyContact, &employee.EmployeeId, &employee.JoiningDate, &employee.Department,
 			&employee.Designation, &employee.EmploymentType, &employee.WorkShift, &employee.JobDescription,
 			&employee.HighestQualification, &employee.Specialization, &employee.TeachingExperience,
-			&employee.Certifications, &employee.ResearchPublications, &employee.ProfessionalMemberships,
-			&employee.RolesResponsibilities, &employee.ReportingManager, &employee.SubjectsAssigned,
-			&employee.ClassGradeAssigned, &employee.AdministrativeDuties, &employee.CommitteeMemberships,
+			pq.Array(&employee.Certifications),
+			pq.Array(&employee.ResearchPublications),
+			pq.Array(&employee.ProfessionalMemberships),
+			pq.Array(&employee.RolesResponsibilities),
+			&employee.ReportingManager,
+			pq.Array(&employee.SubjectsAssigned),
+			pq.Array(&employee.ClassGradeAssigned),
+			pq.Array(&employee.AdministrativeDuties),
+			pq.Array(&employee.CommitteeMemberships),
 			&employee.SalaryStructure, &employee.BankAccountDetails, &employee.PanNumber, &employee.ProvidentFund,
-			&employee.HealthInsurance, &employee.EducationalCertificates, &employee.ExperienceCertificates,
-			&employee.GovernmentIdProofs, &employee.AddressProofs, &employee.JoiningLetter, &employee.PassportPhotos,
-			&employee.PerformanceReviews, &employee.StudentFeedbackRatings, &employee.TrainingPrograms,
-			&employee.PromotionsSalaryRevisions, &employee.AttendanceRecords, &leaveBalance,
-			&employee.LeaveHistory, &employee.LeaveApprovalWorkflow, &employee.EmployeeCategory,
+			&employee.HealthInsurance,
+			pq.Array(&employee.EducationalCertificates),
+			pq.Array(&employee.ExperienceCertificates),
+			pq.Array(&employee.GovernmentIdProofs),
+			pq.Array(&employee.AddressProofs),
+			pq.Array(&employee.JoiningLetter),
+			pq.Array(&employee.PassportPhotos),
+			pq.Array(&employee.PerformanceReviews),
+			pq.Array(&employee.StudentFeedbackRatings),
+			pq.Array(&employee.TrainingPrograms),
+			pq.Array(&employee.PromotionsSalaryRevisions),
+			pq.Array(&employee.AttendanceRecords),
+			&leaveBalance,
+			pq.Array(&employee.LeaveHistory),
+			&employee.LeaveApprovalWorkflow, &employee.EmployeeCategory,
 		)
 		if err != nil {
 			continue
@@ -112,7 +144,24 @@ func GetEmployeeByID(employeeID string) (*proto.Employee, error) {
 	row := DB.QueryRow(query, employeeID)
 
 	var employee proto.Employee
-	err := row.Scan(&employee)
+	var leaveBalance sql.NullString
+
+	err := row.Scan(
+		&employee.FullName, &employee.DateOfBirth, &employee.Gender, &employee.Nationality, &employee.AadharSsn,
+		&employee.ContactNumber, &employee.EmailId, &employee.AddressPermanent, &employee.AddressCurrent,
+		&employee.EmergencyContact, &employee.EmployeeId, &employee.JoiningDate, &employee.Department,
+		&employee.Designation, &employee.EmploymentType, &employee.WorkShift, &employee.JobDescription,
+		&employee.HighestQualification, &employee.Specialization, &employee.TeachingExperience,
+		&employee.Certifications, &employee.ResearchPublications, &employee.ProfessionalMemberships,
+		&employee.RolesResponsibilities, &employee.ReportingManager, &employee.SubjectsAssigned,
+		&employee.ClassGradeAssigned, &employee.AdministrativeDuties, &employee.CommitteeMemberships,
+		&employee.SalaryStructure, &employee.BankAccountDetails, &employee.PanNumber, &employee.ProvidentFund,
+		&employee.HealthInsurance, &employee.EducationalCertificates, &employee.ExperienceCertificates,
+		&employee.GovernmentIdProofs, &employee.AddressProofs, &employee.JoiningLetter, &employee.PassportPhotos,
+		&employee.PerformanceReviews, &employee.StudentFeedbackRatings, &employee.TrainingPrograms,
+		&employee.PromotionsSalaryRevisions, &employee.AttendanceRecords, &leaveBalance,
+		&employee.LeaveHistory, &employee.LeaveApprovalWorkflow, &employee.EmployeeCategory,
+	)
 	if err != nil {
 		return nil, fmt.Errorf("could not fetch employee: %v", err)
 	}
