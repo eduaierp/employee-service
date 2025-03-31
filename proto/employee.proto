@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package employee;
+option go_package = "./proto";
+
+service EmployeeService {
+    rpc GetAllEmployees (EmptyRequest) returns (EmployeeList);
+    rpc GetEmployee (EmployeeRequest) returns (Employee);
+    rpc CreateEmployee (Employee) returns (EmployeeResponse);
+    rpc UpdateEmployee (Employee) returns (EmployeeResponse);
+    rpc DeleteEmployee (EmployeeRequest) returns (EmployeeResponse);
+}
+
+message EmployeeRequest {
+    string employee_id = 1;
+}
+message EmptyRequest {}
+
+message EmployeeList {
+    repeated Employee employees = 1;
+}
+message EmployeeResponse {
+    string message = 1;
+}
+
+message Employee {
+    // Personal Details
+    string full_name = 1;
+    string date_of_birth = 2;
+    string gender = 3;
+    string nationality = 4;
+    string aadhar_ssn = 5;
+    string contact_number = 6;
+    string email_id = 7;
+    string address_permanent = 8;
+    string address_current = 9;
+    string emergency_contact = 10;
+
+    // Employment Details
+    string employee_id = 11;
+    string joining_date = 12;
+    string department = 13;
+    string designation = 14;
+    string employment_type = 15;
+    string work_shift = 16;
+    string job_description = 17;
+
+    // Academic & Qualification Details (For Teaching Staff)
+    string highest_qualification = 18;
+    string specialization = 19;
+    int32 teaching_experience = 20;
+    repeated string certifications = 21;
+    repeated string research_publications = 22;
+    repeated string professional_memberships = 23;
+
+    // Administrative & Role-Based Information
+    repeated string roles_responsibilities = 24;
+    string reporting_manager = 25;
+    repeated string subjects_assigned = 26;
+    repeated string class_grade_assigned = 27;
+    repeated string administrative_duties = 28;
+    repeated string committee_memberships = 29;
+
+    // Salary & Financial Details
+    string salary_structure = 30;
+    string bank_account_details = 31;
+    string pan_number = 32;
+    string provident_fund = 33;
+    string health_insurance = 34;
+
+    // Documents for Verification
+    repeated string educational_certificates = 35;
+    repeated string experience_certificates = 36;
+    repeated string government_id_proofs = 37;
+    repeated string address_proofs = 38;
+    string joining_letter = 39;
+    repeated string passport_photos = 40;
+
+    // Performance & Appraisal Records
+    repeated string performance_reviews = 41;
+    repeated string student_feedback_ratings = 42;
+    repeated string training_programs = 43;
+    repeated string promotions_salary_revisions = 44;
+
+    // Attendance & Leave Management
+    repeated string attendance_records = 45;
+    map<string, int32> leave_balance = 46;
+    repeated string leave_history = 47;
+    string leave_approval_workflow = 48;
+
+    // Categorization
+    string employee_category = 49; // Teaching Staff or Non-Teaching Staff
+}
