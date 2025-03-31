@@ -144,23 +144,40 @@ func GetEmployeeByID(employeeID string) (*proto.Employee, error) {
 	row := DB.QueryRow(query, employeeID)
 
 	var employee proto.Employee
-	var leaveBalance sql.NullString
+	var leaveBalance sql.NullString // For nullable fields
 
+	// Scan query result into employee struct
 	err := row.Scan(
 		&employee.FullName, &employee.DateOfBirth, &employee.Gender, &employee.Nationality, &employee.AadharSsn,
 		&employee.ContactNumber, &employee.EmailId, &employee.AddressPermanent, &employee.AddressCurrent,
 		&employee.EmergencyContact, &employee.EmployeeId, &employee.JoiningDate, &employee.Department,
 		&employee.Designation, &employee.EmploymentType, &employee.WorkShift, &employee.JobDescription,
 		&employee.HighestQualification, &employee.Specialization, &employee.TeachingExperience,
-		&employee.Certifications, &employee.ResearchPublications, &employee.ProfessionalMemberships,
-		&employee.RolesResponsibilities, &employee.ReportingManager, &employee.SubjectsAssigned,
-		&employee.ClassGradeAssigned, &employee.AdministrativeDuties, &employee.CommitteeMemberships,
-		&employee.SalaryStructure, &employee.BankAccountDetails, &employee.PanNumber, &employee.ProvidentFund,
-		&employee.HealthInsurance, &employee.EducationalCertificates, &employee.ExperienceCertificates,
-		&employee.GovernmentIdProofs, &employee.AddressProofs, &employee.JoiningLetter, &employee.PassportPhotos,
-		&employee.PerformanceReviews, &employee.StudentFeedbackRatings, &employee.TrainingPrograms,
-		&employee.PromotionsSalaryRevisions, &employee.AttendanceRecords, &leaveBalance,
-		&employee.LeaveHistory, &employee.LeaveApprovalWorkflow, &employee.EmployeeCategory,
+		pq.Array(&employee.Certifications),          // Use pq.Array for arrays
+		pq.Array(&employee.ResearchPublications),    // Use pq.Array for arrays
+		pq.Array(&employee.ProfessionalMemberships), // Use pq.Array for arrays
+		pq.Array(&employee.RolesResponsibilities),   // Use pq.Array for arrays
+		&employee.ReportingManager,
+		pq.Array(&employee.SubjectsAssigned),     // Use pq.Array for arrays
+		pq.Array(&employee.ClassGradeAssigned),   // Use pq.Array for arrays
+		pq.Array(&employee.AdministrativeDuties), // Use pq.Array for arrays
+		pq.Array(&employee.CommitteeMemberships), // Use pq.Array for arrays
+		&employee.SalaryStructure, &employee.BankAccountDetails,
+		&employee.PanNumber, &employee.ProvidentFund, &employee.HealthInsurance,
+		pq.Array(&employee.EducationalCertificates),   // Use pq.Array for arrays
+		pq.Array(&employee.ExperienceCertificates),    // Use pq.Array for arrays
+		pq.Array(&employee.GovernmentIdProofs),        // Use pq.Array for arrays
+		pq.Array(&employee.AddressProofs),             // Use pq.Array for arrays
+		pq.Array(&employee.JoiningLetter),             // Use pq.Array for arrays
+		pq.Array(&employee.PassportPhotos),            // Use pq.Array for arrays
+		pq.Array(&employee.PerformanceReviews),        // Use pq.Array for arrays
+		pq.Array(&employee.StudentFeedbackRatings),    // Use pq.Array for arrays
+		pq.Array(&employee.TrainingPrograms),          // Use pq.Array for arrays
+		pq.Array(&employee.PromotionsSalaryRevisions), // Use pq.Array for arrays
+		pq.Array(&employee.AttendanceRecords),         // Use pq.Array for arrays
+		&leaveBalance,
+		pq.Array(&employee.LeaveHistory), // Use pq.Array for arrays
+		&employee.LeaveApprovalWorkflow, &employee.EmployeeCategory,
 	)
 	if err != nil {
 		return nil, fmt.Errorf("could not fetch employee: %v", err)
@@ -193,10 +210,17 @@ func UpdateEmployee(employeeID string, updatedEmployee *proto.Employee) error {
 		updatedEmployee.AddressCurrent, updatedEmployee.EmergencyContact, updatedEmployee.JoiningDate,
 		updatedEmployee.Department, updatedEmployee.Designation, updatedEmployee.EmploymentType, updatedEmployee.WorkShift,
 		updatedEmployee.JobDescription, updatedEmployee.HighestQualification, updatedEmployee.Specialization,
-		updatedEmployee.TeachingExperience, updatedEmployee.Certifications, updatedEmployee.ResearchPublications,
-		updatedEmployee.ProfessionalMemberships, updatedEmployee.RolesResponsibilities, updatedEmployee.ReportingManager,
-		updatedEmployee.SubjectsAssigned, updatedEmployee.ClassGradeAssigned, updatedEmployee.AdministrativeDuties,
-		updatedEmployee.CommitteeMemberships, updatedEmployee.SalaryStructure, updatedEmployee.BankAccountDetails,
+		updatedEmployee.TeachingExperience,
+		pq.Array(updatedEmployee.Certifications),          // Use pq.Array here
+		pq.Array(updatedEmployee.ResearchPublications),    // Use pq.Array here
+		pq.Array(updatedEmployee.ProfessionalMemberships), // Use pq.Array here
+		pq.Array(updatedEmployee.RolesResponsibilities),   // Use pq.Array here
+		updatedEmployee.ReportingManager,
+		pq.Array(updatedEmployee.SubjectsAssigned),     // Use pq.Array here
+		pq.Array(updatedEmployee.ClassGradeAssigned),   // Use pq.Array here
+		pq.Array(updatedEmployee.AdministrativeDuties), // Use pq.Array here
+		pq.Array(updatedEmployee.CommitteeMemberships), // Use pq.Array here
+		updatedEmployee.SalaryStructure, updatedEmployee.BankAccountDetails,
 		updatedEmployee.PanNumber, updatedEmployee.ProvidentFund, updatedEmployee.HealthInsurance, updatedEmployee.LeaveBalance,
 		employeeID,
 	)
